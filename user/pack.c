@@ -46,7 +46,7 @@ void process_ring_buffer()
     }
 }
 
-void send_packet(UART_HandleTypeDef *huart, const ReceivePacket_t *payload)
+void send_packet(UART_HandleTypeDef *huart, const SendPacket_t *payload)
 {
     uint8_t buffer[1 + SEND_PACKET_SIZE + 1];
 

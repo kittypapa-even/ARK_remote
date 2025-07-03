@@ -39,16 +39,10 @@ extern void myloop();
 uint8_t usart1_rx_buf[1]; // 临时接收 1 字节
 uint8_t ring_buffer[RX_BUF_SIZE];
 volatile uint16_t write_index = 0;
-extern ReceivePacket_t packet;
 
 extern struct Bkeys bkeys[];
 uint8_t key=0;
 extern uint16_t armBuffer[2];
-
-SendPacket_t sendpacket={
-    .length = 1,      // 包长度
-    .data =2,      // 数据
-};
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -151,9 +145,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-      process_ring_buffer();
       // key =HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_12);
-      send_packet(&huart1, &sendpacket);
+      //send_packet(&huart1, &sendpacket);
+      // HAL_UART_Transmit(&huart1, (uint8_t *)1, 1, HAL_MAX_DELAY);
       myloop();
       HAL_Delay(1); // 延时50毫秒，等待ADC转换完成
     /* USER CODE END WHILE */

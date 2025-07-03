@@ -11,6 +11,9 @@ extern "C" {
 #include <stdint.h>
 #include "main.h"
 #include "adc.h"
+#include "pack.h"
+#include "usart.h"
+#include "key.h"
 
     void myinit();
     void myloop();
