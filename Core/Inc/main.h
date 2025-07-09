@@ -57,10 +57,18 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define bluetooth_TX_Pin GPIO_PIN_10
-#define bluetooth_TX_GPIO_Port GPIOB
-#define bluetooth_RX_Pin GPIO_PIN_11
-#define bluetooth_RX_GPIO_Port GPIOB
+#define LED6_Pin GPIO_PIN_13
+#define LED6_GPIO_Port GPIOC
+#define LED5_Pin GPIO_PIN_14
+#define LED5_GPIO_Port GPIOC
+#define LED1_Pin GPIO_PIN_12
+#define LED1_GPIO_Port GPIOB
+#define LED2_Pin GPIO_PIN_13
+#define LED2_GPIO_Port GPIOB
+#define LED3_Pin GPIO_PIN_14
+#define LED3_GPIO_Port GPIOB
+#define LED4_Pin GPIO_PIN_15
+#define LED4_GPIO_Port GPIOB
 #define encode1_Pin GPIO_PIN_8
 #define encode1_GPIO_Port GPIOA
 #define encode1A9_Pin GPIO_PIN_9

@@ -33,14 +33,15 @@ if(bkeys[4].short_flag == 1)
 */
 #include "key.h"
 
-struct Bkeys bkeys[5] = {0,0};
+struct Bkeys bkeys[6] = {0,0};
 
 uint8_t key_read()
 {
-	if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_12)==0) return 1;
-	// else if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==0) return 2;
-	// else if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_2)==0) return 3;
-	// else if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_0)==0) return 4;
+	if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_12)==0) return 1; //paw
+	else if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==0) return 2;
+	else if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_1)==1) return 3;
+	else if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_0)==1) return 4;
+    else if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)==1) return 5;
 	else return 0;
 }
 
@@ -50,11 +51,17 @@ void key_serv()
 	if(key_sta != 0) 
 	{
 		bkeys[key_sta].age++;
-		if(bkeys[key_sta].age==2)bkeys[key_sta].short_flag=1;
+		if(bkeys[key_sta].age>10 && bkeys[key_sta].press==0) {
+		    bkeys[key_sta].short_flag=1;
+		    bkeys[key_sta].press=1;
+		}
 	}
 	else 
 	{
-		for(int i=0;i<5;i++) bkeys[i].age=0;
+		for(int i=0;i<6;i++) {
+		    bkeys[i].age=0;
+		    bkeys[i].press=0;
+		}
 	}
 }
 
@@ -65,7 +72,7 @@ void key_serv_long()
 	if(key_sta != 0) 
 	{
 		bkeys[key_sta].age++;
-		if(bkeys[key_sta].age>1)bkeys[key_sta].press=1;
+		if(bkeys[key_sta].age==10)bkeys[key_sta].press=1;
 	}
 	else 
 	{

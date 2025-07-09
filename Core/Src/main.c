@@ -30,6 +30,7 @@
 #include <string.h>
 #include <key.h>
 #include "pack.h"
+#include "oled.h"
 extern void myinit();
 extern void myloop();
 // uint16_t usart_RX[1];
@@ -41,7 +42,6 @@ uint8_t ring_buffer[RX_BUF_SIZE];
 volatile uint16_t write_index = 0;
 
 extern struct Bkeys bkeys[];
-uint8_t key=0;
 extern uint16_t armBuffer[2];
 /* USER CODE END Includes */
 
@@ -90,10 +90,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if(htim->Instance==TIM4)
-        //key_serv();
+        key_serv();
         //	key_serv_long();
             //	key_serv_long_2();
-       key_serv_double();
+       // key_serv_double();
 }
 /* USER CODE END 0 */
 
@@ -130,12 +130,13 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
-  MX_USART3_UART_Init();
-  MX_I2C1_Init();
   MX_USART1_UART_Init();
   MX_TIM4_Init();
+  MX_I2C2_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
     myinit();
+    OLED_Init();
     // HAL_UART_Receive_IT(&huart1,(uint8_t *)usart_RX,1);
     HAL_UART_Receive_IT(&huart1, (uint8_t *)usart1_rx_buf, 1); // 开始接收
     HAL_TIM_Base_Start_IT(&htim4);
@@ -145,6 +146,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+      OLED_NewFrame();
+      OLED_DrawImage(0, 0, &RB, OLED_COLOR_NORMAL);
+      OLED_ShowFrame();
       // key =HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_12);
       //send_packet(&huart1, &sendpacket);
       // HAL_UART_Transmit(&huart1, (uint8_t *)1, 1, HAL_MAX_DELAY);

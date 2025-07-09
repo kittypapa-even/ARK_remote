@@ -14,9 +14,11 @@ extern "C" {
 #include "pack.h"
 #include "usart.h"
 #include "key.h"
+#include "oled.h"
 
     void myinit();
     void myloop();
+    void key_loop();
 
 #ifdef __cplusplus
 }

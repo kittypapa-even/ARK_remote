@@ -60,6 +60,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
         user/key.c
         user/bsp_encode.cpp
         user/pack.c
+        user/font.c
+        user/oled.c
 )
 
 # Add include paths
