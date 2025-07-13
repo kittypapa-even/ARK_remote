@@ -39,24 +39,24 @@ void myloop()
 
 void key_loop()
 {
-    PAWkey1=HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_12); // 读取按键状态
-    PAWkey2=HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1); // 读取按键状态
+    PAWkey1=HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1); // 读取按键状态
+    PAWkey2=HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_12); // 读取按键状态
     if (PAWkey1) {
-        sendPacket.PAWkey1=0;
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_RESET); // 切换LED状态
-    }
-    else {
         sendPacket.PAWkey1=1;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_SET); // 切换LED状态
     }
+    else {
+        sendPacket.PAWkey1=0;
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_RESET); // 切换LED状态
+    }
 
     if (PAWkey2) {
-        sendPacket.PAWkey2=1;
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13,GPIO_PIN_SET); // 切换LED状态
-    }
-    else {
         sendPacket.PAWkey2=0;
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13,GPIO_PIN_RESET); // 切换LED状态
+    }
+    else {
+        sendPacket.PAWkey2=1;
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13,GPIO_PIN_SET); // 切换LED状态
     }
 
     if (bkeys[4].short_flag==1) {
@@ -87,7 +87,7 @@ void key_loop()
         bkeys[2].short_flag=0;
     }
 
-    if (bkeys[5].short_flag==1) {
+    if (bkeys[3].short_flag==1) {
         static uint8_t flag5 = 1;
         if (flag5==0) {
             HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
@@ -101,7 +101,7 @@ void key_loop()
             sendPacket.VELkey=1;
             flag5=0;
         }
-        bkeys[5].short_flag=0;
+        bkeys[3].short_flag=0;
     }
 }
 
